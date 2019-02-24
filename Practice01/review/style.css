@@ -1,0 +1,60 @@
+﻿
+a:link {
+  color: blue; 
+  
+  text-decoration: underline;
+}
+
+a:visited {
+  color: red;
+  background-color: transparent;
+  text-decoration: none;
+}
+
+a:hover {
+  color: red;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+a:active {
+  color: yellow;
+  background-color: transparent;
+  text-decoration: underline;
+}
+
+body {
+  background-color: powderblue;
+}
+h1 {
+  color: blue;
+  font-style:italic;
+}
+p{
+  font-family: verdana;
+  font-size: 12px;
+}
+blockquote{
+  color:tomato;
+  font-size:23px;
+  text-shadow: 1px 1px black;
+  font-weight:bold;
+}
+table,th,td{
+  border: 1px solid black;
+}
+th,td{
+  width:100px;
+}
+tr:hover{
+  background-color:dodgerblue;
+}
+li{
+  font-size:20px;
+}
+
+
+
+
+
+
