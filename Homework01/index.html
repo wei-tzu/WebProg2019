@@ -11,5 +11,38 @@
             href="styles.css"
         />
     </head>
-    <body></body>
+    <body>
+        <div class="todo-app__root">
+            <header class="todo-app__header">
+                <div class = "todo-app__title">todos</div>
+            </header>
+            <section class = "todo-app__main">
+                <input class ="todo-app__input" id="todo_input" placeholder="What needs to be done ?" >
+            <ul class = "todo-app__list" id = "todo_list">
+                <!-- <li class = "todo-app__item">
+                    <div class="todo-app__checkbox">
+                        <input type = "checkbox" id="0" onclick="Complete(this.id)">
+                        <label for= "0"></label>
+                    </div>
+                    <h1>hhhh</h1>
+                </li> -->
+            </ul>
+            </section>
+
+            <footer class="todo-app__footer" id="todo-footer">
+                <div class = "todo-app__total">
+                    <p id="todo-count">0 left</p>
+                </div>
+                <ul class = todo-app__view-buttons>
+                    <li> <button onclick = "Display(list,'all')" >All</button></li>
+                    <li> <button onclick = "Display(list,'active')">Active</button></li>
+                    <li> <button onclick = "Display(list,'comp')">Completed</button></li>
+                </ul>
+                <div class="todo-app__clean">
+                    <button onclick = "Display(list,'clear')">Clear Completed</button>
+                </div>
+            </footer>
+        </div>
+    <script src="main.js"></script>
+    </body>
 </html>
