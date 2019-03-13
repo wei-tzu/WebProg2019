@@ -5,7 +5,7 @@ const todo_item = []
 input.addEventListener("keyup", function(event) {
   if (event.keyCode === 13 ) {
   	const itemNode = Item(this.value);
-  	newItem = { node: itemNode, isComplete: false};
+  	newItem = { node: itemNode, isComplete: false, id:todo_item.length};
   	todo_item.push(newItem)
   	Display(list,"all")
   }
@@ -22,7 +22,16 @@ function Complete(id){
 }
 function Delete(no_id){
 	var id = no_id.substring(2,no_id.length)
-	todo_item.splice(Number(id),1);
+	var idx = -1
+	for(i=0;i<todo_item.length;i++){
+		if(todo_item[i].id == id){
+			idx = i
+		}
+	}
+	if(idx != -1){
+		todo_item.splice(idx,1);
+	}
+	update_count()
 	Display(list,"all")
 }
 
@@ -51,15 +60,18 @@ function Display(list,type){
 		}
 	}
 	else if(type == "clear"){
-		for(i=0;i<todo_item.length;i++){
+		var count = todo_item.length
+		for(i=0;i<count;i++){
 			if(todo_item[i].isComplete == true){
+				count = count - 1
 				todo_item.splice(i,1);
-				i = i - 1
+				if(i >= 1){
+					i = i - 1
+				}
 			}
-
-		}
-		for(i=0; i<todo_item.length; i++){
-			list.appendChild(todo_item[i].node)
+			else{
+				list.appendChild(todo_item[i].node)
+			}
 		}
 	}
 	update_count()
