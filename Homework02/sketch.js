@@ -3,6 +3,7 @@ let cvsWrapper = null;
 let bg_x = 0,bg_y = 0;
 let pipe_x1 = 0, pipe_y1 = 0,pipe_x2 = 0, pipe_y2 = 0;
 let song;
+let end = false
 function preload() {
     bg = ["day","night"]
     bg_color = bg[Math.floor(Math.random()*bg.length)]
@@ -55,77 +56,81 @@ function setup() {
 function draw() {
     // Render function (called per frame.)
     //bg 
-    
     background(0);
     image(bgImg,bg_x,bg_y, bgImg.width*bgScale, bgImg.height *bgScale)
     image(bgImg,bg_x + bgImg.width*bgScale,bg_y, bgImg.width*bgScale, bgImg.height *bgScale)
-    // image(base,0,height-(base.height*0.5),base.width*2,base.height*0.5)
-    bg_x -= 1
-    if(bg_x < -bgImg.width*bgScale){
-        bg_x = 0
-    }
-
-    // pipe
-    
     image(pipe_upper,pipe_x1,pipe_y1,pipe_upper.width,pipe_upper.height*first)
     image(pipe_lower,pipe_x1,pipe_y1+height-pipe_lower.height*(1.5 - first),pipe_lower.width,pipe_lower.height*(1.5 - first))
     image(pipe_upper,pipe_x2,pipe_y2,pipe_upper.width,pipe_upper.height*second)
     image(pipe_lower,pipe_x2,pipe_y2+height-pipe_lower.height*(1.5 - second),pipe_lower.width,pipe_lower.height*(1.5 - second))
-    pipe_x1 -= 3
-    pipe_x2 -= 3
-    if (pipe_x1 < -pipe_upper.width){
-        first = Math.random()*0.5 + 0.5
-        pipe_x1 = 400
-    }
-    if (pipe_x2 < -pipe_upper.width){
-        second = Math.random()*0.5 + 0.4
-        pipe_x2 = 400
-    }
     
+    if(end == false){
 
-    // gaming rule
-    if(pipe_x1 <= 200 && pipe_x1 >= 200 - pipe_upper.width){
-        if(y1 < pipe_upper.height*first || y1 >= height-pipe_lower.height*(1.5 - first)){
-            image(gg,width/2-gg.width/2,height/2-gg.height/2)
+        // image(base,0,height-(base.height*0.5),base.width*2,base.height*0.5)
+        bg_x -= 1
+        if(bg_x < -bgImg.width*bgScale){
+            bg_x = 0
         }
-    }
-    else if(pipe_x2 <= 200 && pipe_x2 >= 200 - pipe_upper.width){
-        if(y1 < pipe_upper.height*second || y1 >= height-pipe_lower.height*(1.5 - second)){
-            image(gg,width/2-gg.width/2,height/2-gg.height/2)
-          }
+        // pipe
+        pipe_x1 -= 3
+        pipe_x2 -= 3
+        if (pipe_x1 < -pipe_upper.width){
+            first = Math.random()*0.5 + 0.5
+            pipe_x1 = 400
+        }
+        if (pipe_x2 < -pipe_upper.width){
+            second = Math.random()*0.5 + 0.4
+            pipe_x2 = 400
+        }
+        // bird 
+        vy += ay
+        y1 += vy
+        birdAng += 0.04
+        translate(x1,y1)
+        rotate(birdAng)
+        // bird flapping
+        if(count == 1){
+            image(bird_u,0,0)
+        }
+        else if(count == 2){
+            image(bird_m,0,0)
+        }
+        else if(count == 3){
+            image(bird_d,0,0)
+        }
+        else if(count == 4){
+            count = 0
+            image(bird_m,0,0)
+        }
+        count += 1
+        // gaming rule
+        if(pipe_x1 <= 200 && pipe_x1 >= 200 - pipe_upper.width*1.02){
+            if(y1 < pipe_upper.height*first || y1 >= height-pipe_lower.height*(1.5 - first)){
+                end = true
+            }
+        }
+        else if(pipe_x2 <= 200 && pipe_x2 >= 200 - pipe_upper.width*1.02){
+            if(y1 < pipe_upper.height*second || y1 >= height-pipe_lower.height*(1.5 - second)){
+                end = true
+              }
 
+        }
+        else if(y1 >= height || y1 < 0){
+            end = true
+        }
+
+        // bird
+        
     }
-    else if(y1 >= width || y1 < 0){
+    else{
         image(gg,width/2-gg.width/2,height/2-gg.height/2)
-    }
+        image(bird_u,x1,y1)
 
-    // bird
-    vy += ay
-    y1 += vy
-    birdAng += 0.04
-    translate(x1,y1)
-    rotate(birdAng)
-    // bird flapping
-    if(count == 1){
-        image(bird_u,0,0)
     }
-    else if(count == 2){
-        image(bird_m,0,0)
-    }
-    else if(count == 3){
-        image(bird_d,0,0)
-    }
-    else if(count == 4){
-        count = 0
-        image(bird_m,0,0)
-    }
-    count += 1
-
-
 }
 
 function keyPressed() {
-    if(keyCode === 32){
+    if(keyCode === 32 && end == false){
         vy = -5
         birdAng = -PI/4
         song.play();
