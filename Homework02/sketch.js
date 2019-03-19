@@ -2,6 +2,7 @@ let cvsWrapper = null;
 // assets from: https://github.com/sourabhv/FlapPyBird/tree/master/assets
 let bg_x = 0,bg_y = 0;
 let pipe_x1 = 0, pipe_y1 = 0,pipe_x2 = 0, pipe_y2 = 0;
+let song;
 function preload() {
     bg = ["day","night"]
     bg_color = bg[Math.floor(Math.random()*bg.length)]
@@ -16,6 +17,8 @@ function preload() {
     pipe_lower = loadImage(`assets/sprites/pipe-green-lower.png`)
     gg = loadImage("assets/sprites/gameover.png")
 
+    
+
 }
 
 function setup() {
@@ -26,8 +29,10 @@ function setup() {
         cvsWrapper.offsetWidth,
         cvsWrapper.offsetHeight
     );
-    myCanvas.parent("canvasWrapper");
 
+    myCanvas.parent("canvasWrapper");
+    soundFormats('ogg');
+    song = loadSound('assets/audio/wing.ogg');
     // setup code below
     // bg setup
     bgScale = width/bgImg.width
@@ -50,6 +55,7 @@ function setup() {
 function draw() {
     // Render function (called per frame.)
     //bg 
+    
     background(0);
     image(bgImg,bg_x,bg_y, bgImg.width*bgScale, bgImg.height *bgScale)
     image(bgImg,bg_x + bgImg.width*bgScale,bg_y, bgImg.width*bgScale, bgImg.height *bgScale)
@@ -114,7 +120,6 @@ function draw() {
         image(bird_m,0,0)
     }
     count += 1
-    
 
 
 }
@@ -123,6 +128,8 @@ function keyPressed() {
     if(keyCode === 32){
         vy = -5
         birdAng = -PI/4
+        song.play();
+        
     }
 }
 
