@@ -39,6 +39,8 @@ function setup() {
     myCanvas.parent("canvasWrapper");
     soundFormats('ogg');
     song = loadSound('assets/audio/wing.ogg');
+    die = loadSound('assets/audio/die.ogg');
+    point = loadSound('assets/audio/point.ogg')
     // setup code below
     // bg setup
     bgScale = width/bgImg.width
@@ -55,6 +57,7 @@ function setup() {
     first = 0.7;
     second = 0.6;
     count = 0;
+    pipe_velo = 5;
     
 }
 
@@ -99,8 +102,8 @@ function draw() {
                 bg_x = 0
             }
             // pipe
-            pipe_x1 -= 3
-            pipe_x2 -= 3
+            pipe_x1 -= pipe_velo
+            pipe_x2 -= pipe_velo
             if (pipe_x1 < -pipe_upper.width){
                 first = Math.random()*0.5 + 0.5
                 pipe_x1 = 400
@@ -115,25 +118,29 @@ function draw() {
                 digitOne = 0
                 digitSec += 1
             }
-            image(num[digitOne],250,100)
+            image(num[digitOne],230,100)
             image(num[digitSec],200,100)
 
             if(pipe_x1 <= 200 && pipe_x1 >= 200 - pipe_upper.width*1.02){
                 if(y1 < pipe_upper.height*first || y1 >= height-pipe_lower.height*(1.5 - first)){
                     end = true
+                    die.play();
                 }
             }
             else if(pipe_x2 <= 200 && pipe_x2 >= 200 - pipe_upper.width*1.02){
                 if(y1 < pipe_upper.height*second || y1 >= height-pipe_lower.height*(1.5 - second)){
                     end = true
+                    die.play();
                   }
 
             }
             else if(y1 >= height || y1 < 0){
                 end = true
+                die.play();
             }
-            else if((pipe_x1 + pipe_upper.width*1.02 < 200 && pipe_x1+pipe_upper.width*1.02 > 197) || (pipe_x2+pipe_upper.width*1.02 < 200 && pipe_x2+pipe_upper.width*1.02 > 197)){
+            else if((pipe_x1 + pipe_upper.width*1.02 < 200 && pipe_x1+pipe_upper.width*1.02 > 200-pipe_velo) || (pipe_x2+pipe_upper.width*1.02 < 200 && pipe_x2+pipe_upper.width*1.02 > 200-pipe_velo)){
                 digitOne += 1
+                point.play();
             }
 
             // bird 
@@ -161,8 +168,8 @@ function draw() {
         else{
             image(gg,width/2-gg.width/2,height/2-gg.height/2)
             image(bird_u,x1,y1)
-            image(num[digitOne],250,100)
-            image(num[digitSec],200,100)
+            y1 += 5
+            rotate(birdAng)
 
         }
     }
