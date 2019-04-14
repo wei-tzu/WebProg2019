@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import { NavLink, Switch, Route, Redirect } from "react-router-dom";
 
-import Article from "./Article/Article";
-// import PostRender from "./Posts/PostRender";
-
+import Articles from "./Article/Articles";
+import ArticleRender from "./Article/ArticleRender";
+import Skills from "./Skill/Skills";
 export default class Main extends Component {
     render() {
         return (
@@ -29,12 +29,11 @@ export default class Main extends Component {
                                 </div>
                                 <div class="col-md-6 animate-box" data-animate-effect="fadeInLeft">
                                     <div class="about-desc">
-                                        <span class="heading-meta"></span>
-                                        <h2 class="colorlib-heading">Blog</h2>
                                         <p>
                                             <Switch>
-                                                <Route exact path="/article" component={Article}/>
-                                                <Route path="/article/:id?" />
+                                                <Route exact path="/article" component={Articles}/>
+                                                <Route path="/article/:id?" component={ArticleRender}/>
+                                                <Route path="/skill" component={Skills}/>
                                                 <Redirect from="/home" to="/" />
                                             </Switch>
                                         </p>
