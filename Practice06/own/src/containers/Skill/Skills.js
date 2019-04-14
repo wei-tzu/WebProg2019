@@ -15,6 +15,7 @@ export default class Article extends Component {
       return (
         <div>
         <span class="heading-meta">Skills</span>
+        <h2 class="colorlib-heading"></h2>
         <div class="row row-bottom-padded-md">
 						<div class="col-md-6">
 							<div class="row">
