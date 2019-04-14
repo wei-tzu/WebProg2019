@@ -1,12 +1,17 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
+
+import Skill_bar from "../../component/Skill_bar";
+
 export default class Article extends Component {
     render() {
-      const ArTitle = ["My first day to school","good songs make me cry"]
-      const lists = ArTitle.map((i, index) => (
-        <h3><li  key={index}>
-           <NavLink style={{color: "#000000"}} to={"/article/" + index}>{i}</NavLink>
-        </li></h3>));
+      const skill_topic = ["Python","Html"]
+      const skill_des = ["no database is so unconvenient"]
+      const skill_lists = skill_topic.map((i, index) => (
+        <div class="colorlib-feature animate-box" data-animate-effect="fadeInLeft">
+          <Skill_bar key={index} topic={skill_topic[index]} description ={skill_des[0]}/>
+        </div>
+        ));
       return (
         <div>
         <span class="heading-meta">Skills</span>
@@ -14,15 +19,7 @@ export default class Article extends Component {
 						<div class="col-md-6">
 							<div class="row">
 								<div class="col-md-12">
-									<div class="colorlib-feature animate-box" data-animate-effect="fadeInLeft">
-										<div class="colorlib-icon">
-											<i class="flaticon-worker"></i>
-										</div>
-										<div class="colorlib-text">
-											<h3>General Conctructing</h3>
-											<p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts. </p>
-										</div>
-								</div>
+                  {skill_lists}
               </div>
              </div>
           </div>
