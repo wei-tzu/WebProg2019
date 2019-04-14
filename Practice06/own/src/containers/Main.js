@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { NavLink, Switch, Route, Redirect } from "react-router-dom";
 
-import Posts from "./Post/Posts";
+import Article from "./Article/Article";
 // import PostRender from "./Posts/PostRender";
 
 export default class Main extends Component {
@@ -14,9 +14,9 @@ export default class Main extends Component {
                             <nav id="colorlib-main-menu" role="navigation">
                                     <h1 id="colorlib-logo"><a>Wei-Tzu</a></h1>
                                     <ul>
-                                        <li><NavLink to="/home">Home</NavLink></li>
-                                        <li><NavLink to="/posts">Posts</NavLink></li>
-                                        <li><NavLink to="/authors">Authors</NavLink></li>
+                                        <li><NavLink to="/Home">About Me</NavLink></li>
+                                        <li><NavLink to="/skill">Skills</NavLink></li>
+                                        <li><NavLink to="/article">Article</NavLink></li>
                                     </ul>
                             </nav>
                         </aside>
@@ -31,11 +31,13 @@ export default class Main extends Component {
                                     <div class="about-desc">
                                         <span class="heading-meta"></span>
                                         <h2 class="colorlib-heading">Blog</h2>
-                                        <Switch>
-                                            <Route exact path="/posts" component={Posts}/>
-                                            <Route path="/posts/:id?" />
-                                            <Redirect from="/home" to="/" />
-                                        </Switch>
+                                        <p>
+                                            <Switch>
+                                                <Route exact path="/article" component={Article}/>
+                                                <Route path="/article/:id?" />
+                                                <Redirect from="/home" to="/" />
+                                            </Switch>
+                                        </p>
                                     </div>
                                 </div>
 							</div>
